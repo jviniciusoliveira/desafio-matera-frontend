@@ -6,6 +6,7 @@ import { FormProvider } from '@/providers/FormProvider'
 import { registerFormSchema } from '@/schemas/register-form.schema'
 import { FormInput } from '@/components/FormInput'
 import { listEstadoOptions, listSexoOptions } from '@/utils/constants'
+import { formatByMask } from '@/utils/format'
 
 export default function Register() {
   const formMethods = useForm({
@@ -71,6 +72,7 @@ export default function Register() {
           <FormInput.Text
             name="cpf"
             label="CPF"
+            formatter={(value) => formatByMask(value, '999.999.999-99')}
             aria-placeholder="Digite seu CPF"
           />
           <FormInput.Select
@@ -90,6 +92,7 @@ export default function Register() {
           <FormInput.Text
             name="cep"
             label="CEP"
+            formatter={(value) => formatByMask(value, '99999-999')}
             aria-placeholder="Digite seu CEP"
           />
           <FormInput.Text name="cidade" label="Cidade" />
@@ -114,7 +117,7 @@ export default function Register() {
             label="Senha"
             aria-placeholder="Digite uma senha"
           />
-          <Button type="submit" variant="contained" fullWidth>
+          <Button type="submit" variant="contained" size="large" fullWidth>
             Enviar
           </Button>
         </Box>

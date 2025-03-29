@@ -10,9 +10,10 @@ import {
 type InputTextProps = TextFieldProps & {
   name: string
   label: string
+  formatter?: (value: string) => string
 }
 
-export function InputText({ name, label, ...rest }: InputTextProps) {
+export function InputText({ name, label, formatter, ...rest }: InputTextProps) {
   const inputId = useId()
 
   return (
@@ -29,6 +30,13 @@ export function InputText({ name, label, ...rest }: InputTextProps) {
             variant="outlined"
             error={Boolean(fieldState.error)}
             helperText={fieldState.error?.message}
+            onChange={(event) => {
+              let value = event.target.value
+              if (value && formatter) {
+                value = formatter(value)
+              }
+              field.onChange(value)
+            }}
             slotProps={{
               htmlInput: {
                 'aria-placeholder': rest['aria-placeholder'],
