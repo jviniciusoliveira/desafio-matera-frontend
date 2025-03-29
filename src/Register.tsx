@@ -1,33 +1,31 @@
-import {
-  Box,
-  Button,
-  Card,
-  FormControl,
-  FormLabel,
-  MenuItem,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Box, Button, Card, Typography } from '@mui/material'
+
+import { FormProvider } from './providers/FormProvider'
+import { registerFormSchema } from './schemas/register-form.schema'
+import { FormInput } from './components/FormInput'
+import { listEstadoOptions, listSexoOptions } from './utils/constants'
 
 export default function Register() {
+  const formMethods = useForm({
+    resolver: zodResolver(registerFormSchema),
+  })
+
   return (
     <Card variant="outlined">
       <Typography component="h1" variant="h4" sx={{ marginBottom: '2rem' }}>
         Registro
       </Typography>
-      <Box
-        component="form"
-        onSubmit={async (event) => {
-          event.preventDefault()
-          const formData = new FormData(event.currentTarget)
-          const data = Object.fromEntries(formData.entries())
-
+      <FormProvider
+        methods={formMethods}
+        onSubmit={async (values) => {
           try {
             const response = await fetch(
               'https://67ddc6fd471aaaa7428282c2.mockapi.io/api/v1/user',
               {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify(values),
                 headers: {
                   'Content-Type': 'application/json',
                   Accept: 'application/json',
@@ -40,157 +38,80 @@ export default function Register() {
             console.error(error)
           }
         }}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%',
-          gap: 4,
-        }}
-        noValidate
+        onError={(error) => console.log('error: ', error)}
       >
-        <Typography variant="h6">Dados pessoais</Typography>
-        <FormControl>
-          <FormLabel htmlFor="nome">Nome</FormLabel>
-          <TextField
-            id="nome"
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            gap: 4,
+          }}
+        >
+          <Typography variant="h6">Dados pessoais</Typography>
+          <FormInput.Text
             name="nome"
-            size="small"
-            variant="outlined"
-            fullWidth
+            label="Nome"
+            aria-placeholder="Digite seu nome"
+            autoFocus
           />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="sobrenome">Sobrenome</FormLabel>
-          <TextField
-            id="sobrenome"
+          <FormInput.Text
             name="sobrenome"
-            size="small"
-            variant="outlined"
-            fullWidth
+            label="Sobrenome"
+            aria-placeholder="Digite seu sobrenome"
           />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="cpf">CPF</FormLabel>
-          <TextField
-            id="cpf"
+          <FormInput.Text
             name="cpf"
-            size="small"
-            variant="outlined"
-            fullWidth
+            label="CPF"
+            aria-placeholder="Digite seu CPF"
           />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="sexo">Sexo</FormLabel>
-          <TextField
-            id="sexo"
+          <FormInput.Select
             name="sexo"
-            size="small"
-            variant="outlined"
-            select
-            fullWidth
-          >
-            <MenuItem value="F">Feminino</MenuItem>
-            <MenuItem value="M">Masculino</MenuItem>
-          </TextField>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="dataNascimento">Data de nascimento</FormLabel>
-          <TextField
-            id="dataNascimento"
-            name="dataNascimento"
-            size="small"
-            variant="outlined"
-            fullWidth
+            label="Sexo"
+            options={listSexoOptions}
           />
-        </FormControl>
-        <Typography variant="h6">Endereço</Typography>
-        <FormControl>
-          <FormLabel htmlFor="cep">CEP</FormLabel>
-          <TextField
-            id="cep"
-            name="cep"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="cidade">Cidade</FormLabel>
-          <TextField
-            id="cidade"
-            name="cidade"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="estado">Estado</FormLabel>
-          <TextField
-            id="estado"
-            name="estado"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="logradouro">Logradouro</FormLabel>
-          <TextField
-            id="logradouro"
-            name="logradouro"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="bairro">Bairro</FormLabel>
-          <TextField
-            id="bairro"
-            name="bairro"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="complemento">Complemento</FormLabel>
-          <TextField
-            id="complemento"
-            name="complemento"
-            size="small"
-            variant="outlined"
-            fullWidth
-          />
-        </FormControl>
 
-        <Typography variant="h6">Dados de acesso</Typography>
-        <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <TextField
-            id="email"
+          <FormInput.Text
+            name="dataNascimento"
+            label="Data de nascimento"
+            aria-placeholder="Digite seu CPF"
+            type="date"
+          />
+
+          <Typography variant="h6">Endereço</Typography>
+          <FormInput.Text
+            name="cep"
+            label="CEP"
+            aria-placeholder="Digite seu CEP"
+          />
+          <FormInput.Text name="cidade" label="Cidade" />
+          <FormInput.Select
+            name="estado"
+            label="Estado"
+            options={listEstadoOptions}
+          />
+          <FormInput.Text name="logradouro" label="Logradouro" />
+          <FormInput.Text name="bairro" label="Bairro" />
+          <FormInput.Text name="complemento" label="Complemento" />
+
+          <Typography variant="h6">Dados de acesso</Typography>
+          <FormInput.Text
             name="email"
-            size="small"
-            variant="outlined"
-            fullWidth
+            label="Email"
+            autoComplete="emateste@mail.com"
+            aria-placeholder="Digite seu email"
           />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="senha">Senha</FormLabel>
-          <TextField
-            id="senha"
-            name="senha"
+          <FormInput.Text
             type="password"
-            size="small"
-            variant="outlined"
-            fullWidth
+            name="senha"
+            label="Senha"
+            aria-placeholder="Digite uma senha"
           />
-        </FormControl>
-        <Button type="submit" fullWidth variant="contained">
-          Enviar
-        </Button>
-      </Box>
+          <Button type="submit" variant="contained" fullWidth>
+            Enviar
+          </Button>
+        </Box>
+      </FormProvider>
     </Card>
   )
 }
