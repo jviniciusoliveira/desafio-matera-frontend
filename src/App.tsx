@@ -1,5 +1,6 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import Register from './pages/Register'
+import { RouterProvider } from 'react-router'
+import { router } from './router'
 
 const theme = createTheme({})
 
@@ -8,7 +9,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <h1>Desafio Matera - Frontend</h1>
-      <Register />
+      <RouterProvider router={router} />
     </ThemeProvider>
   )
 }

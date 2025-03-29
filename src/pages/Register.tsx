@@ -98,7 +98,6 @@ export default function Register() {
           <FormInput.Text
             name="email"
             label="Email"
-            autoComplete="emateste@mail.com"
             aria-placeholder="Digite seu email"
           />
           <FormInput.Text
