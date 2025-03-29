@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Box, Button, Card, Typography } from '@mui/material'
 
-import { FormProvider } from './providers/FormProvider'
-import { registerFormSchema } from './schemas/register-form.schema'
-import { FormInput } from './components/FormInput'
-import { listEstadoOptions, listSexoOptions } from './utils/constants'
+import { FormProvider } from '@/providers/FormProvider'
+import { registerFormSchema } from '@/schemas/register-form.schema'
+import { FormInput } from '@/components/FormInput'
+import { listEstadoOptions, listSexoOptions } from '@/utils/constants'
 
 export default function Register() {
   const formMethods = useForm({

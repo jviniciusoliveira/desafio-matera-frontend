@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import Register from './Register'
+import Register from './pages/Register'
 
 const theme = createTheme({})
 
