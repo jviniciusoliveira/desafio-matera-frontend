@@ -4,6 +4,8 @@ import Register from './pages/Register'
 import GuestLayout from './pages/_layout/GuestLayout'
 import Dashboard from './pages/Dashboard'
 import GuardRoute from './components/GuardRoute'
+import AppLayout from './pages/_layout/AppLayout'
+import ProductList from './pages/ProductList'
 
 export const router = createBrowserRouter([
   {
@@ -22,13 +24,24 @@ export const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+    errorElement: <h1>Página não encontrada</h1>,
   },
   {
-    path: '/dashboard',
     element: (
       <GuardRoute isPrivate>
-        <Dashboard />
+        <AppLayout />
       </GuardRoute>
     ),
+    children: [
+      {
+        path: '/',
+        element: <Dashboard />,
+      },
+      {
+        path: '/products',
+        element: <ProductList />,
+      },
+    ],
+    errorElement: <h1>Página não encontrada</h1>,
   },
 ])

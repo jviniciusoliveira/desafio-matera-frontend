@@ -33,3 +33,5 @@ export const listSexoOptions = [
   { value: 'M', label: 'Masculino' },
   { value: 'NI', label: 'Prefiro não informar' },
 ]
+
+export const layoutDrawerWidth = 240
