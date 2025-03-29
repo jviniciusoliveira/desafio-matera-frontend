@@ -5,7 +5,9 @@ import GuestLayout from './pages/_layout/GuestLayout'
 import Dashboard from './pages/Dashboard'
 import GuardRoute from './components/GuardRoute'
 import AppLayout from './pages/_layout/AppLayout'
-import ProductList from './pages/ProductList'
+import ProductList from './pages/product/ProductList'
+import ProductForm from './pages/product/ProductForm'
+import ProductView from './pages/product/ProductView'
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,18 @@ export const router = createBrowserRouter([
       {
         path: '/products',
         element: <ProductList />,
+      },
+      {
+        path: '/product/form',
+        element: <ProductForm />,
+      },
+      {
+        path: '/product/form/:productId',
+        element: <ProductForm />,
+      },
+      {
+        path: '/product/:productId',
+        element: <ProductView />,
       },
     ],
     errorElement: <h1>Página não encontrada</h1>,

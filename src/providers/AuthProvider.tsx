@@ -30,13 +30,13 @@ type Store = {
   logout: VoidFunction
 }
 
-const STORAGE_KEY = '@MateraApp:User'
+export const USER_STORAGE_KEY = '@MateraApp:User'
 
 export const AuthContext = createContext<Store>({} as Store)
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<Store['user']>(() => {
-    const currentUser = localStorage.getItem(STORAGE_KEY)
+    const currentUser = localStorage.getItem(USER_STORAGE_KEY)
 
     if (currentUser) {
       return JSON.parse(currentUser)
@@ -47,12 +47,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = (user: User) => {
     setUser(user)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user))
   }
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(USER_STORAGE_KEY)
   }
 
   return (
