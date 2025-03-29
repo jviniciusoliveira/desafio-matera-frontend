@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, Card, Typography } from '@mui/material'
+import { Box, Button, Card, Divider, Typography } from '@mui/material'
 
 import { FormProvider } from '@/providers/FormProvider'
 import { FormInput } from '@/components/FormInput'
@@ -8,6 +8,7 @@ import {
   loginFormDefaultValues,
   loginFormSchema,
 } from '@/schemas/login-form.schema'
+import { Link } from 'react-router'
 
 export default function Login() {
   const formMethods = useForm({
@@ -16,8 +17,15 @@ export default function Login() {
   })
 
   return (
-    <Card variant="outlined">
-      <Typography component="h1" variant="h4" sx={{ marginBottom: '2rem' }}>
+    <Card
+      variant="outlined"
+      sx={{
+        width: '100%',
+        maxWidth: '450px',
+        padding: '2rem',
+      }}
+    >
+      <Typography component="h1" variant="h5" sx={{ marginBottom: '2rem' }}>
         Login
       </Typography>
       <FormProvider
@@ -25,7 +33,7 @@ export default function Login() {
         onSubmit={async (values) => {
           try {
             const param = new URLSearchParams({
-              search: values.email,
+              email: values.email,
             })
 
             const response = await fetch(
@@ -61,6 +69,12 @@ export default function Login() {
           <Button type="submit" variant="contained" fullWidth>
             Entrar
           </Button>
+        </Box>
+        <Divider sx={{ marginY: '2rem' }} />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Typography sx={{ textAlign: 'center' }}>
+            Não tem cadastro? <Link to="/register">Registre-se</Link>
+          </Typography>
         </Box>
       </FormProvider>
     </Card>

@@ -1,14 +1,20 @@
 import { createBrowserRouter } from 'react-router'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { GuestLayout } from './pages/_layout/GuestLayout'
 
 export const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
+    element: <GuestLayout />,
+    children: [
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
+      },
+    ],
   },
 ])

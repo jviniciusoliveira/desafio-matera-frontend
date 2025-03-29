@@ -8,7 +8,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <h1>Desafio Matera - Frontend</h1>
       <RouterProvider router={router} />
     </ThemeProvider>
   )

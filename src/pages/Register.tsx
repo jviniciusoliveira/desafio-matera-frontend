@@ -13,8 +13,16 @@ export default function Register() {
   })
 
   return (
-    <Card variant="outlined">
-      <Typography component="h1" variant="h4" sx={{ marginBottom: '2rem' }}>
+    <Card
+      variant="outlined"
+      sx={{
+        width: '100%',
+        maxWidth: '600px',
+        padding: '2rem',
+        marginBottom: '2rem',
+      }}
+    >
+      <Typography component="h1" variant="h5" sx={{ marginBottom: '2rem' }}>
         Registro
       </Typography>
       <FormProvider
