@@ -2,7 +2,7 @@ import { Outlet } from 'react-router'
 import { Link as RouterLink } from 'react-router'
 import { Box, Button } from '@mui/material'
 
-export function GuestLayout() {
+export default function GuestLayout() {
   return (
     <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box

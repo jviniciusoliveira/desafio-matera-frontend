@@ -9,8 +9,11 @@ import {
   loginFormSchema,
 } from '@/schemas/login-form.schema'
 import { Link } from 'react-router'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function Login() {
+  const { login } = useAuth()
+
   const formMethods = useForm({
     defaultValues: loginFormDefaultValues,
     resolver: zodResolver(loginFormSchema),
@@ -40,7 +43,10 @@ export default function Login() {
               `https://67ddc6fd471aaaa7428282c2.mockapi.io/api/v1/user?${param}`
             )
             const result = await response.json()
-            console.log(result)
+
+            if (Array.isArray(result) && result.length > 0) {
+              login(result[0])
+            }
           } catch (error) {
             console.error(error)
           }
