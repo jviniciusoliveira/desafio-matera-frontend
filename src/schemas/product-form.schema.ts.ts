@@ -1,3 +1,4 @@
+import { messages } from '@/utils/constants'
 import { z } from 'zod'
 
 export const productFormDefaultValues = {
@@ -12,12 +13,12 @@ export const productFormDefaultValues = {
 }
 
 export const productFormSchema = z.object({
-  nome: z.string().min(1, 'Preenchimento obrigatório.'),
-  marca: z.string().min(1, 'Preenchimento obrigatório.'),
-  preco: z.string().min(1, 'Preenchimento obrigatório.'),
-  qt_estoque: z.coerce.number().positive('Preenchimento obrigatório.'),
-  qt_vendas: z.coerce.number().positive('Preenchimento obrigatório.'),
-  image: z.string().min(1, 'Preenchimento obrigatório.'),
+  nome: z.string().min(1, messages.M001),
+  marca: z.string().min(1, messages.M001),
+  preco: z.string().min(1, messages.M001),
+  qt_estoque: z.coerce.number().positive(messages.M001),
+  qt_vendas: z.coerce.number().positive(messages.M001),
+  image: z.string().min(1, messages.M001),
   createdAt: z.string(),
   id: z.string(),
 })

@@ -1,3 +1,4 @@
+import { messages } from '@/utils/constants'
 import { validate } from '@/utils/validators'
 import dayjs from 'dayjs'
 import { z } from 'zod'
@@ -18,38 +19,32 @@ export const registerFormDefaultValues = {
 }
 
 export const registerFormSchema = z.object({
-  nome: z.string().min(1, 'Preenchimento obrigatório.'),
-  sobrenome: z.string().min(1, 'Preenchimento obrigatório.'),
+  nome: z.string().min(1, messages.M001),
+  sobrenome: z.string().min(1, messages.M001),
   cpf: z
     .string()
-    .min(1, 'Preenchimento obrigatório.')
-    .length(14, 'Formato inválido.')
-    .refine((value) => validate.Cpf(value), { message: 'Formato inválido.' }),
-  sexo: z.string().min(1, 'Preenchimento obrigatório.'),
+    .min(1, messages.M001)
+    .length(14, messages.M002)
+    .refine((value) => validate.Cpf(value), { message: messages.M002 }),
+  sexo: z.string().min(1, messages.M001),
   dt_nascimento: z
     .any()
     .refine((value) => Boolean(value), {
-      message: 'Preenchimento obrigatório.',
+      message: messages.M001,
     })
     .refine((value) => dayjs(value).isValid(), {
-      message: 'Formato inválido.',
+      message: messages.M002,
     }),
-  cep: z
-    .string()
-    .min(1, 'Preenchimento obrigatório.')
-    .length(9, 'Formato inválido.'),
-  cidade: z.string().min(1, 'Preenchimento obrigatório.'),
-  estado: z.string().min(1, 'Preenchimento obrigatório.'),
-  logradouro: z.string().min(1, 'Preenchimento obrigatório.'),
-  bairro: z.string().min(1, 'Preenchimento obrigatório.'),
-  complemento: z.string().min(1, 'Preenchimento obrigatório.'),
-  email: z
-    .string()
-    .min(1, 'Preenchimento obrigatório.')
-    .email('Formato inválido.'),
+  cep: z.string().min(1, messages.M001).length(9, messages.M002),
+  cidade: z.string().min(1, messages.M001),
+  estado: z.string().min(1, messages.M001),
+  logradouro: z.string().min(1, messages.M001),
+  bairro: z.string().min(1, messages.M001),
+  complemento: z.string().min(1, messages.M001),
+  email: z.string().min(1, messages.M001).email(messages.M002),
   senha: z
     .string()
-    .min(1, 'Preenchimento obrigatório.')
+    .min(1, messages.M001)
     .refine(
       (value) => value.length >= 6,
       'Digite uma senha com pelo menos 6 caracteres.'

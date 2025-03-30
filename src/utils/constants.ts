@@ -35,3 +35,8 @@ export const listSexoOptions = [
 ]
 
 export const layoutDrawerWidth = 240
+
+export const messages = {
+  M001: 'Preenchimento obrigatório.',
+  M002: 'Formato inválido.',
+}
