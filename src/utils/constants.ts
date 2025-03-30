@@ -31,7 +31,6 @@ export const listEstadoOptions = [
 export const listSexoOptions = [
   { value: 'F', label: 'Feminino' },
   { value: 'M', label: 'Masculino' },
-  { value: 'NI', label: 'Prefiro não informar' },
 ]
 
 export const layoutDrawerWidth = 240

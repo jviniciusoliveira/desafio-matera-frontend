@@ -15,8 +15,10 @@ import {
   registerFormDefaultValues,
   registerFormSchema,
 } from '@/schemas/register-form.schema'
+import { useState } from 'react'
 
 export default function Register() {
+  const [cepIsLoading, setCepIsLoading] = useState(false)
   const navigate = useNavigate()
 
   const formMethods = useForm({
@@ -37,6 +39,7 @@ export default function Register() {
     if (!cepIsValid) return
 
     try {
+      setCepIsLoading(true)
       const address = await getAddressByCep(inputValue)
 
       formMethods.setValue('cidade', address.localidade)
@@ -47,6 +50,8 @@ export default function Register() {
       console.error(error)
       // TODO: Adicionar Toast.
       alert('CEP não localizado. Preencha os campos de endereço manualmente.')
+    } finally {
+      setCepIsLoading(false)
     }
   }
 
@@ -109,15 +114,30 @@ export default function Register() {
             formatter={(value) => formatByMask(value, '99999-999')}
             onBlur={handleCep}
             aria-placeholder="Digite seu CEP"
+            disabled={cepIsLoading}
+            isLoading={cepIsLoading}
           />
-          <FormInput.Text name="cidade" label="Cidade" />
+          <FormInput.Text
+            name="cidade"
+            label="Cidade"
+            disabled={cepIsLoading}
+          />
           <FormInput.Select
             name="estado"
             label="Estado"
             options={listEstadoOptions}
+            disabled={cepIsLoading}
           />
-          <FormInput.Text name="logradouro" label="Logradouro" />
-          <FormInput.Text name="bairro" label="Bairro" />
+          <FormInput.Text
+            name="logradouro"
+            label="Logradouro"
+            disabled={cepIsLoading}
+          />
+          <FormInput.Text
+            name="bairro"
+            label="Bairro"
+            disabled={cepIsLoading}
+          />
           <FormInput.Text name="complemento" label="Complemento" />
 
           <Typography variant="h6">Dados de acesso</Typography>

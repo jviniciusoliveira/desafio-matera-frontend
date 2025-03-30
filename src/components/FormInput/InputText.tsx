@@ -1,8 +1,10 @@
 import { useId } from 'react'
 import { Controller } from 'react-hook-form'
 import {
+  CircularProgress,
   FormControl,
   FormLabel,
+  InputAdornment,
   TextField,
   TextFieldProps,
 } from '@mui/material'
@@ -10,10 +12,17 @@ import {
 type InputTextProps = TextFieldProps & {
   name: string
   label: string
+  isLoading?: boolean
   formatter?: (value: string) => string
 }
 
-export function InputText({ name, label, formatter, ...rest }: InputTextProps) {
+export function InputText({
+  name,
+  label,
+  formatter,
+  isLoading,
+  ...rest
+}: InputTextProps) {
   const inputId = useId()
 
   return (
@@ -40,6 +49,13 @@ export function InputText({ name, label, formatter, ...rest }: InputTextProps) {
             slotProps={{
               htmlInput: {
                 'aria-placeholder': rest['aria-placeholder'],
+              },
+              input: {
+                endAdornment: isLoading && (
+                  <InputAdornment position="end">
+                    <CircularProgress size="16px" />
+                  </InputAdornment>
+                ),
               },
             }}
             fullWidth
