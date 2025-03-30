@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { styled, Drawer, IconButton, Divider } from '@mui/material'
 
 type SideBarProps = PropsWithChildren & {
@@ -34,7 +34,7 @@ export function SideBar({ children, open, handleDrawerClose }: SideBarProps) {
     >
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
-          <ChevronRightIcon />
+          <ChevronLeftIcon />
         </IconButton>
       </DrawerHeader>
       <Divider />
