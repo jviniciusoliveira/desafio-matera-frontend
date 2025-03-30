@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Box, Button, Card, Divider, Typography } from '@mui/material'
 
 import { FormProvider } from '@/providers/FormProvider'
@@ -8,8 +10,8 @@ import {
   loginFormDefaultValues,
   loginFormSchema,
 } from '@/schemas/login-form.schema'
-import { Link } from 'react-router'
 import { useAuth } from '@/hooks/useAuth'
+import { getUserByEmail } from '@/services/api/users'
 
 export default function Login() {
   const { login } = useAuth()
@@ -17,6 +19,11 @@ export default function Login() {
   const formMethods = useForm({
     defaultValues: loginFormDefaultValues,
     resolver: zodResolver(loginFormSchema),
+  })
+
+  const mutation = useMutation({
+    mutationFn: getUserByEmail,
+    onSuccess: login,
   })
 
   return (
@@ -33,25 +40,7 @@ export default function Login() {
       </Typography>
       <FormProvider
         methods={formMethods}
-        onSubmit={async (values) => {
-          try {
-            const param = new URLSearchParams({
-              email: values.email,
-            })
-
-            const response = await fetch(
-              `https://67ddc6fd471aaaa7428282c2.mockapi.io/api/v1/user?${param}`
-            )
-            const result = await response.json()
-
-            if (Array.isArray(result) && result.length > 0) {
-              login(result[0])
-            }
-          } catch (error) {
-            console.error(error)
-          }
-        }}
-        onError={(error) => console.log('error: ', error)}
+        onSubmit={({ email }) => mutation.mutate(email)}
       >
         <Box
           sx={{
@@ -72,7 +61,7 @@ export default function Login() {
             type="password"
             aria-placeholder="Digite sua senha"
           />
-          <Button type="submit" variant="contained" fullWidth>
+          <Button type="submit" variant="contained" size="large" fullWidth>
             Entrar
           </Button>
         </Box>

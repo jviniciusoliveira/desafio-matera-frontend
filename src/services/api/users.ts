@@ -22,7 +22,11 @@ type User = {
 }
 
 export async function getUserByEmail(email: string) {
-  const response = await httpClient.get(`/user?email${email}`)
+  const response = await httpClient.get(`/user?email=${email}`)
+
+  if (Array.isArray(response.data) && response.data.length > 0) {
+    return response.data[0]
+  }
   return response.data
 }
 
