@@ -1,7 +1,22 @@
-import { IconButton, styled, Toolbar, Typography } from '@mui/material'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import { useState } from 'react'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import MenuIcon from '@mui/icons-material/Menu'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import {
+  Avatar,
+  Box,
+  ButtonBase,
+  IconButton,
+  Menu,
+  MenuItem,
+  styled,
+  Toolbar,
+  Typography,
+} from '@mui/material'
+
 import { layoutDrawerWidth } from '@/utils/constants'
+import { useAuth } from '@/hooks/useAuth'
 
 type StyledAppBarProps = MuiAppBarProps & {
   open?: boolean
@@ -33,8 +48,11 @@ type AppBarProps = {
   open: boolean
   handleDrawerOpen: VoidFunction
 }
-
 export function AppBar({ open, handleDrawerOpen }: AppBarProps) {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+
+  const { user, logout } = useAuth()
+
   return (
     <StyledAppBar position="fixed" open={open}>
       <Toolbar>
@@ -52,9 +70,49 @@ export function AppBar({ open, handleDrawerOpen }: AppBarProps) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          Matera - Teste Frontend
-        </Typography>
+        <Typography variant="h6">Matera - Teste Frontend</Typography>
+
+        <Box
+          sx={{
+            flexGrow: 0,
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar alt={`Imagem do usuário ${user?.nome}`} src={user?.image} />
+          <ButtonBase
+            title="Abrir menu"
+            onClick={(event) => setAnchorElUser(event.currentTarget)}
+          >
+            <Typography variant="subtitle1" sx={{ ml: 2 }}>
+              {`${user?.nome} ${user?.sobrenome}`}
+            </Typography>
+            <ArrowDropDownIcon />
+          </ButtonBase>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={() => setAnchorElUser(null)}
+          >
+            <MenuItem onClick={logout}>
+              <ExitToAppIcon sx={{ mr: 1 }} />
+              <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
       </Toolbar>
     </StyledAppBar>
   )
