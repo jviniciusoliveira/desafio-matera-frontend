@@ -1,3 +1,4 @@
+import { validate } from '@/utils/validators'
 import dayjs from 'dayjs'
 import { z } from 'zod'
 
@@ -19,7 +20,11 @@ export const registerFormDefaultValues = {
 export const registerFormSchema = z.object({
   nome: z.string().min(1, 'Preenchimento obrigatório.'),
   sobrenome: z.string().min(1, 'Preenchimento obrigatório.'),
-  cpf: z.string().min(1, 'Preenchimento obrigatório.'),
+  cpf: z
+    .string()
+    .min(1, 'Preenchimento obrigatório.')
+    .length(14, 'Formato inválido.')
+    .refine((value) => validate.Cpf(value), { message: 'Formato inválido.' }),
   sexo: z.string().min(1, 'Preenchimento obrigatório.'),
   dt_nascimento: z
     .any()

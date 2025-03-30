@@ -26,25 +26,27 @@ export default function Register() {
   })
 
   const handleCep = async () => {
+    const formValues = formMethods.watch()
+    if (!formValues.cep) return
+
     const cepIsValid = await formMethods.trigger('cep')
+    if (!cepIsValid) return
 
-    if (cepIsValid) {
-      try {
-        const formValues = formMethods.watch()
-        const address = await getAddressByCep(formValues.cep)
+    try {
+      const formValues = formMethods.watch()
+      const address = await getAddressByCep(formValues.cep)
 
-        formMethods.reset({
-          ...formValues,
-          cidade: address.localidade,
-          estado: address.uf,
-          logradouro: address.logradouro,
-          bairro: address.bairro,
-        })
-      } catch (error) {
-        console.error(error)
-        // TODO: Adicionar Toast.
-        alert('CEP não localizado. Preencha os campos de endereço manualmente.')
-      }
+      formMethods.reset({
+        ...formValues,
+        cidade: address.localidade,
+        estado: address.uf,
+        logradouro: address.logradouro,
+        bairro: address.bairro,
+      })
+    } catch (error) {
+      console.error(error)
+      // TODO: Adicionar Toast.
+      alert('CEP não localizado. Preencha os campos de endereço manualmente.')
     }
   }
 
