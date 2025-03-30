@@ -21,7 +21,7 @@ npm install
 
 - Executar a aplicação em modo 'desenvolvimento' (Acessar via http://localhost:5173/)
 ```sh
-npm start
+npm run dev
 ```
 
 - Gerar build (pasta ./dist)
