@@ -14,20 +14,10 @@ import {
 
 import { getProductById, deleteProduct } from '@/services/api/products'
 import { formatDate, formatToMoney } from '@/utils/format'
+import { Product } from '@/types'
 
 type Params = {
   productId: string
-}
-
-type Product = {
-  createdAt: string
-  nome: string
-  image: string
-  preco: string
-  qt_estoque: number
-  qt_vendas: number
-  marca: string
-  id: string
 }
 
 export default function ProductView() {

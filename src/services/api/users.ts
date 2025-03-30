@@ -1,25 +1,5 @@
-import { Dayjs } from 'dayjs'
 import { httpClient } from './httpClient'
-
-type User = {
-  createdAt: string
-  nome: string
-  image: string
-  sobrenome: string
-  cpf: string
-  sexo: string
-  dt_nascimento: string | Dayjs
-  cep: string
-  cidade: string
-  estado: string
-  logradouro: string
-  bairro: string
-  complemento: string
-  email: string
-  senha: string
-  token: string
-  id: string
-}
+import { User } from '@/types'
 
 export async function getUserByEmail(email: string) {
   const response = await httpClient.get(`/user?email=${email}`)

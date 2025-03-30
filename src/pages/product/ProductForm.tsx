@@ -18,20 +18,10 @@ import {
   getProductById,
   updateProduct,
 } from '@/services/api/products'
+import { Product } from '@/types'
 
 type Params = {
   productId: string
-}
-
-type Product = {
-  createdAt: string
-  nome: string
-  image: string
-  preco: string
-  qt_estoque: number
-  qt_vendas: number
-  marca: string
-  id: string
 }
 
 export default function ProductForm() {

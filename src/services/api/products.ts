@@ -1,15 +1,5 @@
+import { Product } from '@/types'
 import { httpClient } from './httpClient'
-
-type Product = {
-  createdAt: string
-  nome: string
-  image: string
-  preco: string
-  qt_estoque: number
-  qt_vendas: number
-  marca: string
-  id: string
-}
 
 export async function getProducts() {
   const response = await httpClient.get('/product')

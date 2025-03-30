@@ -1,27 +1,7 @@
 import { createContext, PropsWithChildren, useState } from 'react'
+import { User } from '@/types'
 
 type AuthProviderProps = PropsWithChildren
-
-type User = {
-  createdAt: string
-  nome: string
-  image: string
-  sobrenome: string
-  cpf: string
-  sexo: string
-  dt_nascimento: number
-  cep: string
-  cidade: string
-  estado: string
-  logradouro: string
-  bairro: string
-  complemento: string
-  email: string
-  senha: string
-  token: string
-  id: string
-  dataNascimento: string
-}
 
 type Store = {
   isAuthenticated: boolean

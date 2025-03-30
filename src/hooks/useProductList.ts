@@ -2,17 +2,7 @@ import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { getProducts } from '@/services/api/products'
-
-type Product = {
-  createdAt: string
-  nome: string
-  image: string
-  preco: string
-  qt_estoque: number
-  qt_vendas: number
-  marca: string
-  id: string
-}
+import { Product } from '@/types'
 
 const ITEMS_PER_PAGE = 15
 
