@@ -5,6 +5,7 @@ import {
   Box,
   Fab,
   IconButton,
+  LinearProgress,
   Pagination,
   Paper,
   Stack,
@@ -17,17 +18,24 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+
 import { useProductList } from '@/hooks/useProductList'
+import { ProductImage } from '@/components/ProductImage'
 
 export default function ProductList() {
   const {
     currentPage,
+    setCurrentPage,
     totalPages,
     products,
     searchTerm,
-    setCurrentPage,
     setSearchTerm,
+    isLoading,
   } = useProductList()
+
+  if (isLoading) {
+    return <LinearProgress />
+  }
 
   return (
     <Stack spacing={4}>
@@ -77,15 +85,7 @@ export default function ProductList() {
               >
                 <TableCell component="th" scope="row">
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <img
-                      src={row.image}
-                      style={{
-                        width: 60,
-                        height: 60,
-                        objectFit: 'cover',
-                        borderRadius: 4,
-                      }}
-                    />
+                    <ProductImage src={row.image} />
                     {row.nome}
                   </Box>
                 </TableCell>

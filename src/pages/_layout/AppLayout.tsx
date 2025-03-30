@@ -54,7 +54,7 @@ export default function AppLayout() {
   const [drawerIsOpen, setDrawerIsOpen] = useState(true)
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', overflow: 'hidden' }}>
       <AppBar
         open={drawerIsOpen}
         handleDrawerOpen={() => setDrawerIsOpen(true)}
@@ -82,7 +82,7 @@ export default function AppLayout() {
           </ListItem>
         </List>
       </SideBar>
-      <Main open={drawerIsOpen}>
+      <Main open={drawerIsOpen} sx={{ overflow: 'auto' }}>
         <DrawerHeader />
         <Outlet />
       </Main>

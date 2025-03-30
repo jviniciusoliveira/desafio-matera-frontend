@@ -23,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.55.0",
     "react-router": "^7.4.1",
+    "styled-components": "^6.1.16",
     "validar-cpf": "^3.1.1",
     "vanilla-masker": "^1.2.0",
     "zod": "^3.24.2"

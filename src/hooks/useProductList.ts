@@ -14,11 +14,13 @@ type Product = {
   id: string
 }
 
+const ITEMS_PER_PAGE = 15
+
 export function useProductList() {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
 
-  const { data = [] } = useQuery<unknown, unknown, Product[]>({
+  const { data = [], isLoading } = useQuery<unknown, unknown, Product[]>({
     queryKey: ['products'],
     queryFn: getProducts,
   })
@@ -37,16 +39,17 @@ export function useProductList() {
     )
   }, [data, searchTerm])
 
-  const start = (currentPage - 1) * 5
-  const end = start + 5
+  const start = (currentPage - 1) * ITEMS_PER_PAGE
+  const end = start + ITEMS_PER_PAGE
   const paginatedProducts = filteredProducts.slice(start, end)
 
   return {
     currentPage,
-    totalPages: Math.ceil(filteredProducts.length / 5),
+    totalPages: Math.ceil(filteredProducts.length / ITEMS_PER_PAGE),
     searchTerm,
     products: paginatedProducts,
     setCurrentPage,
     setSearchTerm,
+    isLoading,
   }
 }
