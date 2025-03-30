@@ -34,8 +34,6 @@ export default function ProductForm() {
 
   const mutation = useMutation({
     mutationFn: params.productId ? updateProduct : createProduct,
-    onSuccess: console.log,
-    onError: console.error,
   })
 
   const formMethods = useForm({
@@ -72,7 +70,6 @@ export default function ProductForm() {
         <FormProvider
           methods={formMethods}
           onSubmit={(values) => mutation.mutate(values)}
-          onError={(error) => console.log(error)}
         >
           <Box
             sx={{
