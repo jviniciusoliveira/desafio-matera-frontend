@@ -11,8 +11,8 @@ function setAuthorizationHeader(request: InternalAxiosRequestConfig) {
   const user = localStorage.getItem(USER_STORAGE_KEY)
 
   if (user && request.headers) {
-    const parserUser = JSON.parse(user)
-    request.headers.Authorization = parserUser.token
+    const parsedUser = JSON.parse(user)
+    request.headers.Authorization = parsedUser.token
   }
 
   return request

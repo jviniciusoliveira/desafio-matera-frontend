@@ -37,15 +37,17 @@ export function InputSelect({
           <Select
             {...field}
             {...rest}
-            required
-            fullWidth
-            displayEmpty
             size="small"
             error={Boolean(fieldState.error)}
             inputProps={{
               id: inputId,
               'aria-placeholder': 'Selecione um item na lista',
             }}
+            onChange={(event) => {
+              field.onChange(event.target.value)
+            }}
+            fullWidth
+            displayEmpty
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
