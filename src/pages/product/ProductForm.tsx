@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,6 +26,7 @@ type Params = {
 }
 
 export default function ProductForm() {
+  const navigate = useNavigate()
   const params = useParams<Params>()
 
   const { data: productData, isLoading } = useQuery<unknown, unknown, Product>({
@@ -35,6 +36,7 @@ export default function ProductForm() {
 
   const mutation = useMutation({
     mutationFn: params.productId ? updateProduct : createProduct,
+    onSuccess: () => navigate('/products'),
   })
 
   const formMethods = useForm({

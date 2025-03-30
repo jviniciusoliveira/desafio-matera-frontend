@@ -1,4 +1,4 @@
-import { useParams, Link as RouterLink } from 'react-router'
+import { useParams, Link as RouterLink, useNavigate } from 'react-router'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
@@ -21,6 +21,7 @@ type Params = {
 }
 
 export default function ProductView() {
+  const navigate = useNavigate()
   const params = useParams<Params>()
 
   const { data, isLoading } = useQuery<unknown, unknown, Product>({
@@ -30,6 +31,7 @@ export default function ProductView() {
 
   const mutation = useMutation({
     mutationFn: deleteProduct,
+    onSuccess: () => navigate('/products'),
   })
 
   if (isLoading) {

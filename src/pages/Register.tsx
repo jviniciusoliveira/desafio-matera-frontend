@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Box, Card, Typography } from '@mui/material'
@@ -16,6 +17,8 @@ import {
 } from '@/schemas/register-form.schema'
 
 export default function Register() {
+  const navigate = useNavigate()
+
   const formMethods = useForm({
     defaultValues: registerFormDefaultValues,
     resolver: zodResolver(registerFormSchema),
@@ -23,6 +26,7 @@ export default function Register() {
 
   const mutation = useMutation({
     mutationFn: createUser,
+    onSuccess: () => navigate('/login'),
   })
 
   const handleCep = async () => {
