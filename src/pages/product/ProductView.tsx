@@ -8,13 +8,13 @@ import {
   Grid,
   IconButton,
   LinearProgress,
-  Stack,
   Typography,
 } from '@mui/material'
 
 import { getProductById, deleteProduct } from '@/services/api/products'
 import { formatDate, formatToMoney } from '@/utils/format'
 import { Product } from '@/types'
+import { AppPage } from '@/components/AppPage'
 
 type Params = {
   productId: string
@@ -37,8 +37,8 @@ export default function ProductView() {
   }
 
   return (
-    <Stack spacing={2}>
-      <Typography variant="h4">Produto</Typography>
+    <AppPage.Container>
+      <AppPage.Title>Produto</AppPage.Title>
       <Card
         variant="outlined"
         sx={{
@@ -100,6 +100,6 @@ export default function ProductView() {
           </Grid>
         </Box>
       </Card>
-    </Stack>
+    </AppPage.Container>
   )
 }

@@ -8,7 +8,6 @@ import {
   LinearProgress,
   Pagination,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -16,12 +15,12 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Typography,
 } from '@mui/material'
 
 import { useProductList } from '@/hooks/useProductList'
 import { ProductImage } from '@/components/ProductImage'
 import { formatToMoney } from '@/utils/format'
+import { AppPage } from '@/components/AppPage'
 
 export default function ProductList() {
   const {
@@ -39,8 +38,8 @@ export default function ProductList() {
   }
 
   return (
-    <Stack spacing={4}>
-      <Typography variant="h4">Produtos</Typography>
+    <AppPage.Container>
+      <AppPage.Title>Produtos</AppPage.Title>
       <Box
         sx={{
           display: 'flex',
@@ -116,6 +115,6 @@ export default function ProductList() {
         page={currentPage}
         onChange={(_, page) => setCurrentPage(page)}
       />
-    </Stack>
+    </AppPage.Container>
   )
 }

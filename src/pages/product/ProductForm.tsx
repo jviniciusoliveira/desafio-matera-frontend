@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, Typography, Box, Stack, LinearProgress } from '@mui/material'
+import { Card, Box, LinearProgress } from '@mui/material'
 
 import { FormInput } from '@/components/FormInput'
 import { SubmitButton } from '@/components/SubmitButton'
@@ -19,6 +19,7 @@ import {
   updateProduct,
 } from '@/services/api/products'
 import { Product } from '@/types'
+import { AppPage } from '@/components/AppPage'
 
 type Params = {
   productId: string
@@ -55,8 +56,8 @@ export default function ProductForm() {
   }
 
   return (
-    <Stack spacing={4}>
-      <Typography variant="h4">Cadastrar produto</Typography>
+    <AppPage.Container>
+      <AppPage.Title>Cadastrar produto</AppPage.Title>
       <Card
         variant="outlined"
         sx={{
@@ -117,6 +118,6 @@ export default function ProductForm() {
           </Box>
         </FormProvider>
       </Card>
-    </Stack>
+    </AppPage.Container>
   )
 }

@@ -1,7 +1,9 @@
+import { AppPage } from '@/components/AppPage'
+
 export default function Dashboard() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <AppPage.Container>
+      <AppPage.Title>Dashboard</AppPage.Title>
+    </AppPage.Container>
   )
 }
