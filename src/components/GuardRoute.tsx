@@ -14,7 +14,7 @@ export default function GuardRoute({ children, isPrivate }: GuardRouteProps) {
   }
 
   if (!isPrivate && isAuthenticated) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/products" replace />
   }
 
   return children

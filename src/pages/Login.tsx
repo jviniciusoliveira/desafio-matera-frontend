@@ -2,7 +2,14 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Box, Button, Card, Divider, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  Divider,
+  FormHelperText,
+  Typography,
+} from '@mui/material'
 
 import { FormProvider } from '@/providers/FormProvider'
 import { FormInput } from '@/components/FormInput'
@@ -11,7 +18,7 @@ import {
   loginFormSchema,
 } from '@/schemas/login-form.schema'
 import { useAuth } from '@/hooks/useAuth'
-import { getUserByEmail } from '@/services/api/users'
+import { userLogin } from '@/services/api/users'
 
 export default function Login() {
   const { login } = useAuth()
@@ -22,8 +29,14 @@ export default function Login() {
   })
 
   const mutation = useMutation({
-    mutationFn: getUserByEmail,
+    mutationFn: userLogin,
     onSuccess: login,
+    onError: (error) => {
+      // TODO: Adicionar Toast
+      formMethods.setError('root', { message: error.message })
+      formMethods.setError('email', { message: '' })
+      formMethods.setError('senha', { message: '' })
+    },
   })
 
   return (
@@ -40,7 +53,7 @@ export default function Login() {
       </Typography>
       <FormProvider
         methods={formMethods}
-        onSubmit={({ email }) => mutation.mutate(email)}
+        onSubmit={(values) => mutation.mutate(values)}
       >
         <Box
           sx={{
@@ -65,6 +78,11 @@ export default function Login() {
             Entrar
           </Button>
         </Box>
+        {formMethods.formState.errors?.root && (
+          <FormHelperText sx={{ marginY: '2rem', textAlign: 'center' }} error>
+            {formMethods.formState.errors.root.message}
+          </FormHelperText>
+        )}
         <Divider sx={{ marginY: '2rem' }} />
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Typography sx={{ textAlign: 'center' }}>
