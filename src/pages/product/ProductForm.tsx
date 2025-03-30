@@ -23,6 +23,7 @@ import {
   getProductById,
   updateProduct,
 } from '@/services/api/products'
+import { formatToMoney } from '@/utils/format'
 
 type Params = {
   productId: string
@@ -60,7 +61,10 @@ export default function ProductForm() {
 
   useEffect(() => {
     if (productData?.id) {
-      formMethods.reset(productData)
+      formMethods.reset({
+        ...productData,
+        preco: formatToMoney(productData.preco),
+      })
     }
   }, [productData, formMethods])
 
@@ -108,6 +112,7 @@ export default function ProductForm() {
             <FormInput.Text
               name="preco"
               label="Preço"
+              formatter={(value) => formatToMoney(value)}
               aria-placeholder="Digite o preço do produto"
             />
             <FormInput.Text

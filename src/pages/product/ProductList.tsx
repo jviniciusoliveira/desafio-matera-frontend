@@ -21,6 +21,7 @@ import {
 
 import { useProductList } from '@/hooks/useProductList'
 import { ProductImage } from '@/components/ProductImage'
+import { formatToMoney } from '@/utils/format'
 
 export default function ProductList() {
   const {
@@ -90,7 +91,7 @@ export default function ProductList() {
                   </Box>
                 </TableCell>
                 <TableCell align="center">{row.marca}</TableCell>
-                <TableCell align="center">{row.preco}</TableCell>
+                <TableCell align="center">{formatToMoney(row.preco)}</TableCell>
                 <TableCell align="center">{row.qt_estoque}</TableCell>
                 <TableCell align="center">{row.qt_vendas}</TableCell>
                 <TableCell align="center">

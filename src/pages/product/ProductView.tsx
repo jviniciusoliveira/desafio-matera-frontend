@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 
 import { getProductById, deleteProduct } from '@/services/api/products'
+import { formatDate, formatToMoney } from '@/utils/format'
 
 type Params = {
   productId: string
@@ -39,8 +40,6 @@ export default function ProductView() {
 
   const mutation = useMutation({
     mutationFn: deleteProduct,
-    onSuccess: console.log,
-    onError: console.error,
   })
 
   if (isLoading) {
@@ -86,7 +85,9 @@ export default function ProductView() {
             </Grid>
             <Grid size={6} display="flex" flexDirection="column">
               <Typography variant="subtitle1">Preço</Typography>
-              <Typography variant="h6">{data?.preco}</Typography>
+              <Typography variant="h6">
+                {formatToMoney(String(data?.preco))}
+              </Typography>
             </Grid>
             <Grid size={6} display="flex" flexDirection="column">
               <Typography variant="subtitle1">Marca</Typography>
@@ -102,7 +103,9 @@ export default function ProductView() {
             </Grid>
             <Grid size={12} display="flex" flexDirection="column">
               <Typography variant="subtitle1">Cadastrado em:</Typography>
-              <Typography variant="h6">{data?.createdAt}</Typography>
+              <Typography variant="h6">
+                {formatDate(String(data?.createdAt))}
+              </Typography>
             </Grid>
           </Grid>
         </Box>
