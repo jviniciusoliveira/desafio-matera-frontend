@@ -6,7 +6,9 @@ type ImageProps = ImgHTMLAttributes<HTMLImageElement> & {
   isLoading: boolean
 }
 
-const Image = styled.img<ImageProps>`
+const Image = styled('img').withConfig({
+  shouldForwardProp: (prop) => prop !== 'isLoading',
+})<ImageProps>`
   width: 60px;
   height: 60px;
   object-fit: cover;
