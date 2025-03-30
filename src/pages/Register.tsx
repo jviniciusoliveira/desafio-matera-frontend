@@ -26,23 +26,19 @@ export default function Register() {
   })
 
   const handleCep = async () => {
-    const formValues = formMethods.watch()
-    if (!formValues.cep) return
+    const inputValue = formMethods.getValues('cep')
+    if (!inputValue) return
 
-    const cepIsValid = await formMethods.trigger('cep')
+    const cepIsValid = /^\d{5}-\d{3}$/.test(inputValue)
     if (!cepIsValid) return
 
     try {
-      const formValues = formMethods.watch()
-      const address = await getAddressByCep(formValues.cep)
+      const address = await getAddressByCep(inputValue)
 
-      formMethods.reset({
-        ...formValues,
-        cidade: address.localidade,
-        estado: address.uf,
-        logradouro: address.logradouro,
-        bairro: address.bairro,
-      })
+      formMethods.setValue('cidade', address.localidade)
+      formMethods.setValue('estado', address.uf)
+      formMethods.setValue('logradouro', address.logradouro)
+      formMethods.setValue('bairro', address.bairro)
     } catch (error) {
       console.error(error)
       // TODO: Adicionar Toast.
