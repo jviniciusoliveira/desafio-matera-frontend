@@ -3,17 +3,12 @@ import { useParams } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Card,
-  Typography,
-  Box,
-  Button,
-  Stack,
-  LinearProgress,
-} from '@mui/material'
+import { Card, Typography, Box, Stack, LinearProgress } from '@mui/material'
 
 import { FormInput } from '@/components/FormInput'
+import { SubmitButton } from '@/components/SubmitButton'
 import { FormProvider } from '@/providers/FormProvider'
+import { formatToMoney } from '@/utils/format'
 import {
   productFormSchema,
   productFormDefaultValues,
@@ -23,7 +18,6 @@ import {
   getProductById,
   updateProduct,
 } from '@/services/api/products'
-import { formatToMoney } from '@/utils/format'
 
 type Params = {
   productId: string
@@ -132,9 +126,7 @@ export default function ProductForm() {
               label="Link imagem"
               aria-placeholder="Cole o link da imagem do produto"
             />
-            <Button type="submit" variant="contained" size="large" fullWidth>
-              Enviar
-            </Button>
+            <SubmitButton loading={mutation.isPending}>Enviar</SubmitButton>
           </Box>
         </FormProvider>
       </Card>

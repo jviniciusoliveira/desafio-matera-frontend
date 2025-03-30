@@ -2,23 +2,17 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import {
-  Box,
-  Button,
-  Card,
-  Divider,
-  FormHelperText,
-  Typography,
-} from '@mui/material'
+import { Box, Card, Divider, FormHelperText, Typography } from '@mui/material'
 
 import { FormProvider } from '@/providers/FormProvider'
 import { FormInput } from '@/components/FormInput'
+import { useAuth } from '@/hooks/useAuth'
+import { userLogin } from '@/services/api/users'
+import { SubmitButton } from '@/components/SubmitButton'
 import {
   loginFormDefaultValues,
   loginFormSchema,
 } from '@/schemas/login-form.schema'
-import { useAuth } from '@/hooks/useAuth'
-import { userLogin } from '@/services/api/users'
 
 export default function Login() {
   const { login } = useAuth()
@@ -74,9 +68,7 @@ export default function Login() {
             type="password"
             aria-placeholder="Digite sua senha"
           />
-          <Button type="submit" variant="contained" size="large" fullWidth>
-            Entrar
-          </Button>
+          <SubmitButton loading={mutation.isPending}>Entrar</SubmitButton>
         </Box>
         {formMethods.formState.errors?.root && (
           <FormHelperText sx={{ marginY: '2rem', textAlign: 'center' }} error>

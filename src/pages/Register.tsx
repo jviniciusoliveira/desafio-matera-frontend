@@ -1,19 +1,19 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Box, Button, Card, Typography } from '@mui/material'
+import { Box, Card, Typography } from '@mui/material'
 
 import { FormProvider } from '@/providers/FormProvider'
+import { FormInput } from '@/components/FormInput'
+import { SubmitButton } from '@/components/SubmitButton'
+import { listEstadoOptions, listSexoOptions } from '@/utils/constants'
+import { formatByMask } from '@/utils/format'
+import { createUser } from '@/services/api/users'
+import { getAddressByCep } from '@/services/api/viacep'
 import {
   registerFormDefaultValues,
   registerFormSchema,
 } from '@/schemas/register-form.schema'
-import { FormInput } from '@/components/FormInput'
-import { listEstadoOptions, listSexoOptions } from '@/utils/constants'
-import { formatByMask } from '@/utils/format'
-
-import { createUser } from '@/services/api/users'
-import { getAddressByCep } from '@/services/api/viacep'
 
 export default function Register() {
   const formMethods = useForm({
@@ -72,6 +72,7 @@ export default function Register() {
           }}
         >
           <Typography variant="h6">Dados pessoais</Typography>
+
           <FormInput.Text
             name="nome"
             label="Nome"
@@ -95,7 +96,9 @@ export default function Register() {
             options={listSexoOptions}
           />
           <FormInput.Date name="dt_nascimento" label="Data de nascimento" />
+
           <Typography variant="h6">Endereço</Typography>
+
           <FormInput.Text
             name="cep"
             label="CEP"
@@ -112,7 +115,9 @@ export default function Register() {
           <FormInput.Text name="logradouro" label="Logradouro" />
           <FormInput.Text name="bairro" label="Bairro" />
           <FormInput.Text name="complemento" label="Complemento" />
+
           <Typography variant="h6">Dados de acesso</Typography>
+
           <FormInput.Text
             name="email"
             label="Email"
@@ -124,9 +129,7 @@ export default function Register() {
             label="Senha"
             aria-placeholder="Digite uma senha"
           />
-          <Button type="submit" variant="contained" size="large" fullWidth>
-            Enviar
-          </Button>
+          <SubmitButton loading={mutation.isPending}>Enviar</SubmitButton>
         </Box>
       </FormProvider>
     </Card>
